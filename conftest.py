@@ -4,6 +4,7 @@ import urls
 from pages.page_constructor import PageConstructor
 from pages.page_login import PageLogin
 from pages.page_order_feed import PageOrderFeed
+import data
 
 @pytest.fixture(params=["chrome", "firefox"])
 def driver(request):
@@ -26,7 +27,6 @@ def constructor_page(request):
     page = PageConstructor(request.cls.driver)
     page.page_loading_wait()
     request.cls.constructor_page = page
-    yield
 
 @pytest.fixture
 @pytest.mark.usefixtures("driver")
@@ -35,16 +35,13 @@ def orders_feed_page(request):
     page = PageOrderFeed(request.cls.driver)
     page.page_loading_wait()
     request.cls.orders_feed_page = page
-    yield
 
 @pytest.fixture
 def login(request):
     request.cls.driver.get(urls.login_url)
     page = PageLogin(request.cls.driver)
     page.page_loading_wait()
-    page.send_email_password_enter()
+    page.send_email_password_enter(data.email, data.password)
     page.wait_for_url(urls.base_url)
 
     request.cls.authorized_page = page
-
-    yield

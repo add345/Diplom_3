@@ -10,7 +10,7 @@ class PageLogin(PageBase):
         self.wait_element_hide(LoginLocators.loading_modal)
 
     @allure.step("Логин на странице входа")
-    def send_email_password_enter(self):
-        self.send_keys_to_input(LoginLocators.email_field, data.email)
-        self.send_keys_to_input(LoginLocators.password_field, data.password)
+    def send_email_password_enter(self, email, password):
+        self.send_keys_to_input(LoginLocators.email_field, email)
+        self.send_keys_to_input(LoginLocators.password_field, password)
         self.click_element(LoginLocators.enter_button)
