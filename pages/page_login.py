@@ -1,5 +1,4 @@
 import allure
-import data
 from pages.page_base import PageBase
 from locators.locators_login import LoginLocators
 
