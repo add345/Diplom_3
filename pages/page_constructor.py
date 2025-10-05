@@ -64,3 +64,16 @@ class PageConstructor(PageBase):
     @allure.step("Получение номера заказа")
     def get_order_number(self):
         return int(self.get_element_text(ConstructorLocators.order_number))
+
+    @allure.step("Сделать заказ")
+    def make_order(self):
+        self.page_loading_wait()
+        self.move_ingredient_to_basket()
+        self.make_order_button()
+
+        self.wait_for_order_info()
+        self.wait_for_order_number()
+
+        self.page_loading_wait()
+
+        return self.get_order_number()
